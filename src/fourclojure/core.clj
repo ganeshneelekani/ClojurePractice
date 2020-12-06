@@ -191,12 +191,12 @@
 
 (defn polindrome[arg]
   (let [split (#(str/split % #"") arg) 
-        stringBuffer (new StringBuffer)
+        stringBuffer (atom (new StringBuffer))
         countString (count split)]
         (doseq [countString (reverse split) ] 
           (println countString)
           (println "-----")
-          (-> stringBuffer (.append (str countString)) .toString))
+          (swap! (-> stringBuffer (.append (str countString)) .toString)))
         (if (= arg stringBuffer)
           "Polindrome"
           "Not a poindrome"
@@ -272,11 +272,16 @@
          (println " ")
     (if (> current 1)
         (recur next (dec next) (* total current))
-      total)))
+      total))) 
 
 #_(factorial-using-recur 8)
 
 (take 5 (iterate #(+ 3 %) 1))
 
 (dorun (map #(println "hi" %) ["mum" "dad" "sister"]))
+
+
+(split-at 2 [1 2 3 4 5])
+
+(polindrome "abba")
 
